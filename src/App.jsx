@@ -1,15 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+//CSS
+import './App.css';
+
+//React 
+import { useCallback, useEffect, useState } from 'react';
+
+//data
+import {wordsList} from './data/palavras';
+
+//componentes
+import TelaInicial from './components/TelaInicial';
+import Jogo from './components/Jogo';
+import GameOver from './components/GameOver';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const estagios = [
+    {id: 0, name: 'inicio'},
+    {id: 1, name: 'jogo'},
+    {id: 2, name: 'game over'},
+  ];
 
+  const [palavras] = useState(wordsList);
+  const [gameEstagio, getGameEstagio] = useState(estagios[0].name);
+  
+  console.log(palavras);
+
+ 
   return (
     <>
-      <div>
-        <h1>Palavra Secreta</h1>
+      <div className='App'>
+        {gameEstagio === 'inicio' && <TelaInicial/>}
+        {gameEstagio === 'jogo' & <Jogo/>}
+        {gameEstagio === 'game over' && <GameOver/>}
       </div>
       
     </>
