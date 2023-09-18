@@ -9,7 +9,7 @@ import {wordsList} from './data/palavras';
 
 //componentes
 import TelaInicial from './components/TelaInicial';
-import Jogo from './components/Jogo';
+import Jogos from './components/Jogos';
 import GameOver from './components/GameOver';
 
 
@@ -22,17 +22,29 @@ function App() {
   ];
 
   const [palavras] = useState(wordsList);
-  const [gameEstagio, getGameEstagio] = useState(estagios[0].name);
+  const [gameEstagio, setGameEstagio] = useState(estagios[0].name);
   
-  console.log(palavras);
+  //começar jogo das palavras secretas
+  const comecarJogo = () =>{
+    setGameEstagio(estagios[1].name)
+  }
 
+  //processamento das letras nos inputs
+  const verificarLetra = () => {
+    setGameEstagio(estagios[2].name)
+  }
+
+  //reiniciar jogo
+  const reiniciarJogo = () =>{
+    setGameEstagio(estagios[0].name)
+  }
  
   return (
     <>
       <div className='App'>
-        {gameEstagio === 'inicio' && <TelaInicial/>}
-        {gameEstagio === 'jogo' & <Jogo/>}
-        {gameEstagio === 'game over' && <GameOver/>}
+        {gameEstagio === 'inicio' && <TelaInicial comecarJogo={comecarJogo}/>}
+        {gameEstagio === 'jogo' && <Jogos verificarLetra={verificarLetra}/>}
+        {gameEstagio === 'game over' && <GameOver reiniciarJogo={reiniciarJogo}/>}
       </div>
       
     </>
