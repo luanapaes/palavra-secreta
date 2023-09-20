@@ -26,11 +26,16 @@ function App() {
   const [categoriaEscolhida, setCategoriaEscolhida] = useState("");
   const [letras, setLetras] = useState([]);
 
+  const [letrasAdivinhadas, getLetrasAdivinhadas] = useState([]);
+  const [letrasErradas, getLetrasErradas] = useState([]);
+  const [tentativas, getTentativas] = useState(3);
+  const [pontuacao, getPontuacao] = useState(0);
+
   const palavraCategoriaEscolhidas = () =>{
     //para escolher a categoria aleatoriamente
     const categorias = Object.keys(palavras);
     const categoria = categorias[Math.floor(Math.random() * Object.keys(categorias).length)];
-    console.log(categoria);
+    console.log(categorias);
     //o random retorna um valor quebrado então não pegaria uma posição 1,2 ou 3, por exemplo
     //então usamos o floor para arredondar o valor para baixo
 
@@ -74,7 +79,18 @@ function App() {
     <>
       <div className='App'>
         {gameEstagio === 'inicio' && <TelaInicial comecarJogo={comecarJogo} />}
-        {gameEstagio === 'jogo' && <Jogos verificarLetra={verificarLetra} />}
+        {gameEstagio === 'jogo' && (
+          <Jogos 
+            verificarLetra={verificarLetra} 
+            palavraEscolhida={palavraEscolhida} 
+            categoriaEscolhida={categoriaEscolhida} 
+            letras={letras}
+            letrasAdivinhadas={letrasAdivinhadas}
+            letrasErradas={letrasErradas}
+            tentativas={tentativas}
+            pontuacao={pontuacao}
+          />
+        )}
         {gameEstagio === 'game over' && <GameOver reiniciarJogo={reiniciarJogo} />}
       </div>
 
